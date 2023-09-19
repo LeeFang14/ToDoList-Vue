@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <p>my task</p>
+  <p>In Progress</p>
 </template>
 
 <style></style>

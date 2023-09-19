@@ -1,85 +1,80 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import addTaskButton from "./components/addTaskButton.vue"
+import { RouterLink, RouterView } from "vue-router"
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
+    <nav class="container nav_container">
+      <RouterLink to="/">My tasks</RouterLink>
+      <RouterLink to="/inprogress">In Progress</RouterLink>
+      <RouterLink to="/completed">Completed</RouterLink>
+    </nav>
   </header>
-
-  <RouterView />
+  <main class="container main_container">
+    <addTaskButton />
+    <div class="task_list_container">
+      <RouterView />
+    </div>
+    <div class="task_counter">
+      <p class="task_left">0 task left</p>
+    </div>
+  </main>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 header {
-  line-height: 1.5;
-  max-height: 100vh;
+  background: $light-blue;
+}
+.container {
+  max-width: 660px;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.main_container {
+  padding: 24px 20px 64px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
+.nav_container {
+  display: flex;
+  a {
+    position: relative;
+    padding: 24px 0;
+    flex: 1 1 auto;
+    display: block;
+    text-align: center;
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+    @include Paragraph;
+    color: $blue;
+    @include breakpoint($sm) {
+      @include Title;
+    }
+    &:hover {
+      color: $white;
+    }
+    &.active {
+      color: $white;
+      &::after {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% * 160 / 220);
+        height: 5px;
+        content: "";
+        background: $blue;
+      }
+    }
   }
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.task_list_container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.task_counter {
+  @include Status;
 }
 </style>

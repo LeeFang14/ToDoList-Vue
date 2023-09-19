@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <p>my task</p>
+  <p>Completed</p>
 </template>
 
 <style></style>
