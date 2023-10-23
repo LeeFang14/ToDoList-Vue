@@ -1,41 +1,5 @@
-@use "../abstracts/" as *;
+@use '../abstracts/' as *;
 
-// main container block
-
-.task_adding_container.adding {
-  .task_adding_icon {
-    display: none;
-  }
-  .new_task {
-    display: block;
-  }
-  .task_content {
-    display: block;
-  }
-  .task_control {
-    display: flex;
-  }
-}
-.task_adding_container {
-  .task_adding_icon {
-    padding: 18px 32px;
-    border: 2px solid $gray-300;
-    background: $white;
-    font-size: 24px;
-    color: $gray-300;
-    cursor: pointer;
-  }
-}
-
-// 渲染 form 父層
-.task_list_container {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.task_counter {
-  @include Status;
-}
 // base task
 .task_container {
   background: $gray-200;
@@ -48,7 +12,7 @@
   padding: 24px 32px;
   gap: 16px;
 
-  input[name="isDone"] {
+  input[name='done'] {
     flex-shrink: 0;
     width: 24px;
     height: 24px;
@@ -57,14 +21,14 @@
     border-radius: 2px;
     cursor: pointer;
   }
-  input[name="isDone"]:checked {
-    background: url("../image/check-solid.svg") $light-blue;
+  input[name='done']:checked {
+    background: url('@/assets/image/check-solid.svg') $light-blue;
     background-position: center;
     background-repeat: no-repeat;
     background-size: 80%;
   }
 
-  input[type="text"] {
+  input[type='text'] {
     flex-grow: 1;
     width: 100%;
     @include Paragraph;
@@ -77,7 +41,7 @@
       color: black;
     }
   }
-  input[type="text"]:disabled {
+  input[type='text']:disabled {
     color: $black;
   }
   button {
@@ -86,17 +50,17 @@
     height: 24px;
   }
 
-  input[name="isImportant"] {
+  input[name='important'] {
     flex-shrink: 0;
     width: 27px;
     height: 24px;
     appearance: none;
-    background: url("../image/star-regular.svg");
+    background: url('@/assets/image/star-regular.svg');
     cursor: pointer;
   }
-  input[name="isImportant"]:hover,
-  input[name="isImportant"]:checked {
-    background: url("../image/star-solid.svg");
+  input[name='important']:hover,
+  input[name='important']:checked {
+    background: url('@/assets/image/star-solid.svg');
   }
 
   .edit:hover {
@@ -193,8 +157,10 @@
     }
   }
   .date_container {
-    input[name="date"],
-    input[name="time"] {
+    display: flex;
+    gap: 8px;
+    input[name='date'],
+    input[name='time'] {
       width: 162px;
       padding: 8px 16px;
     }
@@ -227,74 +193,5 @@
         background: #3982d7;
       }
     }
-  }
-}
-// task status
-.task_container.new_task {
-  display: none;
-  z-index: 0;
-  .task_title_status {
-    display: none;
-  }
-}
-.task_container.new_task,
-.task_container.editing {
-  .edit {
-    i {
-      font-weight: 600;
-      color: $light-blue;
-    }
-  }
-}
-.task_container.editing {
-  box-shadow: 0 4px 4px 0 $gray-300;
-  .task_content {
-    display: block;
-    border-top: 3px solid $gray-300;
-  }
-  .task_control {
-    display: flex;
-  }
-  .task_title_status {
-    display: none;
-  }
-}
-.task_container.important {
-  order: 0;
-  .task_title,
-  .task_title input[name="title"] {
-    background-color: $important-bg;
-  }
-  input[name="isImportant"] {
-    background: url("../image/star-solid.svg");
-  }
-}
-.task_container.finished {
-  order: 2;
-  .task_title {
-    input[name="title"] {
-      text-decoration: line-through;
-      color: #9b9b9b;
-      &::placeholder {
-        color: #9b9b9b;
-      }
-    }
-  }
-  .task_title_status {
-    display: none;
-  }
-}
-
-.task_container.dragging {
-  position: relative;
-  .task_title::before {
-    content: ".  .  .";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    writing-mode: vertical-rl;
-    font-size: 30px;
-    color: #d8d8d8;
   }
 }

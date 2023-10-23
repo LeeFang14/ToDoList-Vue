@@ -1,6 +1,6 @@
 <script setup>
-import addTaskButton from "./components/addTaskButton.vue"
-import { RouterLink, RouterView } from "vue-router"
+import addTaskButton from '@/components/addTaskButton.vue'
+import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
@@ -12,13 +12,21 @@ import { RouterLink, RouterView } from "vue-router"
     </nav>
   </header>
   <main class="container main_container">
-    <addTaskButton />
-    <div class="task_list_container">
-      <RouterView />
+    <div class="task_adding_container">
+      <addTaskButton></addTaskButton>
     </div>
-    <div class="task_counter">
-      <p class="task_left">0 task left</p>
-    </div>
+    <RouterView v-slot="{ Component }">
+      <suspense>
+        <template #default>
+          <div class="task_list_container">
+            <component :is="Component"></component>
+          </div>
+        </template>
+        <template #fallback>
+          <div>Loading...</div>
+        </template>
+      </suspense>
+    </RouterView>
   </main>
 </template>
 
@@ -53,18 +61,18 @@ header {
     &:hover {
       color: $white;
     }
-    &.active {
-      color: $white;
-      &::after {
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: calc(100% * 160 / 220);
-        height: 5px;
-        content: "";
-        background: $blue;
-      }
+  }
+  .router-link-active {
+    color: $white;
+    &::after {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% * 160 / 220);
+      height: 5px;
+      content: '';
+      background: $blue;
     }
   }
 }
@@ -73,8 +81,5 @@ header {
   display: flex;
   flex-direction: column;
   gap: 8px;
-}
-.task_counter {
-  @include Status;
 }
 </style>
